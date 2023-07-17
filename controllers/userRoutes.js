@@ -4,32 +4,48 @@ const User = require('../models/User');
 // Login User
 router.post('/login', async (req, res) => {
     try {
-        const formUser = req.body.userName;
-        const formPassword = req.body.password;
+        const userData = await User.findOne({where: {username: req.body.userName}});
+     
+        if(!userData){
+            res.status(400).json({message: 'Password or email incorrect'})
+        }
+        // Validate that the password matches
+        const isValidPass = await user.validatePass(req.body.password);
 
-        const user = await User.findOne({
-            where: {
-                userName: formUser
-            }
-        });
+        if (!isValidPass) {
+            res.status(400).json({message: 'Incorrect password'});
+            return;
+        }
 
-        // if the user doesnt exist, redirect them to register
-        if(!user) return res.redirect('/register');
+      req.session.save(() => {
+        req.session.user_id = userData.id;
+        req.session.logged_in = true;
 
-        // Validate that the password is a match
-        const isValidPass = await user.validatePass(formPassword);
-
-        if (!isValidPass) throw new Error('invalid_password');
-
-        // start a new session with that user.id stored 
-        req.session.user_id = user.id;
-
-       res.json(user);
+        res.json({message: 'Logged in successfully'});
+      });
 
     } catch (err) {
-        if (err.message === 'invalid_password') {
-            res.redirect('/login'); 
-        }
+      res.status(400).json(err);
+    }
+});
+
+// Register User
+router.post('/register', async (req, res) => {
+    try {
+        const newUser = await User.create(req.body);
+
+        req.session.save(() => {
+            req.session.user_id = newUser.id;
+            req.session.logged_in = true;
+      
+            res.status(200).json(newUser);
+            console.log(newUser);
+          });
+
+    } catch (err) {
+        const dupeName = err.errors.find(e => e.path === 'userName');
+        // if username already exists
+        if (dupeName) res.json({error: 'Username already exists'})
     }
 });
 
