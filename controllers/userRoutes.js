@@ -1,15 +1,15 @@
 const router = require('express').Router();
-const User = require('../models/User');
+const User = require('../models');
 
 // Login User
 router.post('/login', async (req, res) => {
     try {
-        const userData = await User.findOne({where: {username: req.body.userName}});
+        const userData = await User.findOne({where: {userName: req.body.userName}});
      
         if(!userData){
             res.status(400).json({message: 'Password or email incorrect'})
         }
-        // Validate that the password matches
+        // Validate that the password is correct
         const isValidPass = await user.validatePass(req.body.password);
 
         if (!isValidPass) {
@@ -21,7 +21,7 @@ router.post('/login', async (req, res) => {
         req.session.user_id = userData.id;
         req.session.logged_in = true;
 
-        res.json({message: 'Logged in successfully'});
+        res.status(200).json({message: 'Logged in successfully'});
       });
 
     } catch (err) {
