@@ -24,7 +24,7 @@ router.post('/login', async (req, res) => {
         // start a new session with that user.id stored 
         req.session.user_id = user.id;
 
-        res.redirect('/dashboard');
+       res.json(user);
 
     } catch (err) {
         if (err.message === 'invalid_password') {
@@ -32,3 +32,5 @@ router.post('/login', async (req, res) => {
         }
     }
 });
+
+module.exports = router;
