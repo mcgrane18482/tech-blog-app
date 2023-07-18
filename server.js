@@ -1,7 +1,8 @@
 const path = require('path');
-const sequelize = require('./config/connection');
-const express = require('express');
 const session = require('express-session');
+const sequelize = require('./config/connection');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const express = require('express');
 const exphbs = require('express-handlebars');
 const routes = require('./controllers');
 
@@ -18,7 +19,10 @@ app.use(session({
   secret: process.env.SECRET_KEY,
   resave: false,
   saveUninitialized: true,
-  cookie: { httpOnly: true }
+  cookie: { httpOnly: true },
+  store: new SequelizeStore({
+    db: sequelize
+  })
 }));
 
 // Middleware

@@ -1,31 +1,31 @@
 const router = require('express').Router();
-const User = require('../models');
+const User = require('../models/User');
 
 // Login User
 router.post('/login', async (req, res) => {
     try {
-        const userData = await User.findOne({where: {userName: req.body.userName}});
+        const formUser = req.body.userName;
+        const formPassword = req.body.password;
+
+        const user = await User.findOne({where: {userName: formUser}});
      
-        if(!userData){
-            res.status(400).json({message: 'Password or email incorrect'})
+        if(!user){
+            res.status(400).json({message: 'An account with that username does not exist'})
         }
         // Validate that the password is correct
-        const isValidPass = await user.validatePass(req.body.password);
+        const isValidPass = await user.validatePass(formPassword);
 
         if (!isValidPass) {
             res.status(400).json({message: 'Incorrect password'});
             return;
         }
 
-      req.session.save(() => {
-        req.session.user_id = userData.id;
-        req.session.logged_in = true;
-
-        res.status(200).json({message: 'Logged in successfully'});
-      });
-
+        req.session.user_id = user.id;
+        res.render('dashboard');
+       
     } catch (err) {
-      res.status(400).json(err);
+        console.log(err)
+      res.json({error: err});
     }
 });
 
@@ -38,8 +38,8 @@ router.post('/register', async (req, res) => {
             req.session.user_id = newUser.id;
             req.session.logged_in = true;
       
-            res.status(200).json(newUser);
             console.log(newUser);
+            res.render('dashboard');
           });
 
     } catch (err) {
@@ -48,5 +48,12 @@ router.post('/register', async (req, res) => {
         if (dupeName) res.json({error: 'Username already exists'})
     }
 });
+
+// Logout
+router.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.render('dashboard');
+})
+
 
 module.exports = router;

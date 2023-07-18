@@ -1,0 +1,16 @@
+<h2>Dashboard</h2>
+
+<main class="blog-posts">
+    {{#each posts}}
+        <div class = "blog-post">
+            <h4>{{title}}</h4>
+            <p>{{text}}</p>
+        </div>
+    {{/each}}
+</main>
+
+<form action="/blogPost" method="POST">
+    <input name="title" type="text" placeholder="Title">
+    <input name="text" type="text" placeholder="Write your post">
+    <button>Add post</button>
+</form>
