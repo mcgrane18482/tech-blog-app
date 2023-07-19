@@ -9,8 +9,10 @@
     {{/each}}
 </main>
 
-<form action="/blogPost" method="POST">
-    <input name="title" type="text" placeholder="Title">
-    <input name="text" type="text" placeholder="Write your post">
-    <button>Add post</button>
+<form id="postForm" >
+    <input name="title" type="text" placeholder="Title" id="title">
+    <textarea name="text" type="text" placeholder="Write your post" rows="10" id="text"></textarea>
+    <button type="submit">Add post</button>
 </form>
+
+<script src="/js/addPost.js"></script>

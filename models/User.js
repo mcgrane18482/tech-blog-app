@@ -1,10 +1,12 @@
 const { Model, DataTypes } = require('sequelize');
 const db = require('../config/connection');
-const {hash, compare} = require('bcrypt');
-const Post = require('./Post');
+const {hash, compareSync} = require('bcrypt');
 
-
-class User extends Model { }
+class User extends Model { 
+validatePass(pw){
+  return  compareSync(pw, this.password)
+}
+}
 
 User.init({
     userName: {
@@ -12,13 +14,13 @@ User.init({
         unique: true,
         allowNull: false,
         validate: {
-            min: 5
+            min: [4]
         }
     },
     password: {
       type: DataTypes.STRING,
       validate: {
-        min: 6
+        min: [6]
       }
     }
   }, {
@@ -26,20 +28,17 @@ User.init({
     modelName: 'user',
     hooks: {
       beforeCreate: async function(user){
-        const hashPassword = await hash(user.password, 10);
+        user.password = await hash(user.password, 10);
   
-        user.password = hashPassword;
+       return user.password
       }
     }
   });
 
-User.prototype.validatePass = async function(formPassword) {
-  const isValid = await compare(formPassword, this.password);
-  return isValid;
-}
+// User.prototype.validatePass = async function(formPassword) {
+//   const isValid = await compare(formPassword, this.password);
+//   return isValid;
+// }
 
-// Associating posts to users
-User.hasMany(Post);
-Post.belongsTo(User);
 
 module.exports = User;

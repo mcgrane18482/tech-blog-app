@@ -2,7 +2,7 @@
     <div class="row">
         <h4 class="center-align">Welcome to Tech Talk</h4>
         <h6 class="center-align">Sign up for an account</h6>
-        <form action="/register" method="POST" class="col s12">
+        <form id="register_form" class="col s12">
             <div class="row">
                 <div class="input-field col s6">
                     <input name="userName" id="username" type="text">
@@ -23,7 +23,9 @@
                      <span class="helper-text" data-error="wrong" data-success="right">Passwords must match</span>
                 </div>
             </div> --}}
-            <button>Submit</button>
+            <button type="submit">Submit</button>
         </form>
     </div>
 </div>
+
+<script src="/js/register.js"></script>
