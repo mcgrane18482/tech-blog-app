@@ -60,7 +60,9 @@ router.post('/', async (req, res) => {
 // Logout
 router.get('/logout', (req, res) => {
     req.session.destroy();
-})
+    res.redirect('/');
+    // res.status(200).json({message: 'You are logged out'})
+});
 
 
 module.exports = router;

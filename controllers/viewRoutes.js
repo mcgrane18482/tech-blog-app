@@ -27,6 +27,6 @@ router.get('/dashboard', auth, async (req, res) => {
     res.render('dashboard', {
         isLoggedIn: req.session.logged_in 
       });
-})
+});
 
 module.exports = router;

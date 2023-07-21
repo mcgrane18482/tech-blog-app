@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="/css/style.css">
   <title>Tech Talk</title>
 </head>
 
@@ -16,10 +16,12 @@
         <a href="/" class="brand-logo">Tech Talk</a>
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           {{#if isLoggedIn}}
-            <a href = "/logout">Logout</a>
-            {{else}}
-          <li><a href="/register">Register</a></li>
-          <li><a href="/login">Login</a></li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/dashboard">Dashboard</a></li>
+            <li><a href="/logout">Logout</a></li>
+          {{else}}
+            <li><a href="/register">Register</a></li>
+            <li><a href="/login">Login</a></li>
           {{/if}}
         </ul>
       </div>
@@ -32,5 +34,5 @@
 
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-            
+
 </html>

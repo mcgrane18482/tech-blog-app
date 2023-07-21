@@ -1,5 +1,5 @@
 
-const registerFormSubmit = async (e) => {
+const postFormSubmit = async (e) => {
     e.preventDefault()
   
 
@@ -18,10 +18,10 @@ const registerFormSubmit = async (e) => {
         if (response.ok) {
             document.location.reload()
         } else {
-            alert('failed to login!')
+            alert('failed to load any posts!')
         }
    
 }
 
 
-document.getElementById('postForm').addEventListener('submit', registerFormSubmit)
+document.getElementById('postForm').addEventListener('submit', postFormSubmit)
