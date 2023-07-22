@@ -1,1 +1,14 @@
 <h3>Tech Talk</h3>
+
+<ul class="article-ul">
+    {{#each posts}}
+    <div>
+        <a href="/{{id}}">
+        <h4>{{title}}</h4>
+        </a>
+        <p>{{text}}</p>
+        <p>By: {{user.userName}}</p>
+    </div>
+    {{/each}}
+
+</ul>

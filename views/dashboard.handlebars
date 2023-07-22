@@ -1,18 +1,32 @@
-<h2>Dashboard</h2>
+<h2>Your Dashboard</h2>
 
-<main class="blog-posts">
-    {{#each posts}}
-        <div class = "blog-post">
-            <h4>{{title}}</h4>
-            <p>{{text}}</p>
-        </div>
-    {{/each}}
-</main>
-
-<form id="postForm" >
+<form id="postForm">
     <input name="title" type="text" placeholder="Title" id="title">
     <textarea name="text" type="text" placeholder="Write your post" rows="10" id="text"></textarea>
     <button type="submit">Add post</button>
 </form>
 
+{{#if posts.length}}
+<div class="col-md-6 project-list">
+    <h3>Your Posts:</h3>
+
+    <ul class="article-ul">
+        {{#each posts}}
+        <div>
+            <input type="hidden" value="{{id}}">
+            <h4>{{title}}</h4>
+            <p>{{text}}</p>
+            <p>By: {{user.userName}}</p>
+            </a>
+        </div>
+
+        <button class="btn" id="deleteBtn">Delete</button>
+</div>
+</ul>
+{{/each}}
+</div>
+{{/if}}
+
+
 <script src="/js/addPost.js"></script>
+<script src="/js/delete.js"></script>

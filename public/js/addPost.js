@@ -1,4 +1,3 @@
-
 const postFormSubmit = async (e) => {
     e.preventDefault()
   
@@ -18,7 +17,8 @@ const postFormSubmit = async (e) => {
         if (response.ok) {
             document.location.reload()
         } else {
-            alert('failed to load any posts!')
+            console.log()
+            alert('failed to add post!')
         }
    
 }
