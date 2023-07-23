@@ -13,14 +13,13 @@
     <ul class="article-ul">
         {{#each posts}}
         <div>
-            <input type="hidden" value="{{id}}">
+            <input type="hidden" id="hidden-input" value="{{id}}">
             <h4>{{title}}</h4>
             <p>{{text}}</p>
             <p>By: {{user.userName}}</p>
-            </a>
+            <button class="btn" id="deleteBtn">Delete</button>
         </div>
 
-        <button class="btn" id="deleteBtn">Delete</button>
 </div>
 </ul>
 {{/each}}
