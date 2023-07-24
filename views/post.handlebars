@@ -1,6 +1,33 @@
-<h1>{{post.title}}</h1>
+<div class="post-wrapper center m-post">
+    <div class="post-card">
+        <section class="left-content">
+            <h4>{{post.title}}</h4>
+            <p>{{post.text}}</p>
+        </section>
+    </div>
+</div>
+
+{{#each comments}}
+<div class="comment-wrapper center">
+    <div class="comment-card left-content">
+        <h4 class="comment-text">{{text}}</h4>
+        <p class="comment-date">On: {{createdAt}}</p>
+    </div>
+</div>
+{{/each}}
 
 {{#if logged_in}}
-<h2>you are logged in and can see this</h2>
+<form class="center-columns" id="commentForm">
+    <section class="left">
+        <h6>Add a comment:</h6>
+    </section>
+    <input type="hidden" id="hidden-input" value="{{post.id}}">
+    <textarea class="text-input" name="text" type="text" placeholder="Enter comment" id="text"></textarea>
+    <section>
+        <button id="confirmBtn" type="submit">Comment</button>
+    </section>
+</form>
 
 {{/if}}
+
+<script src="/js/addComment.js"></script>
